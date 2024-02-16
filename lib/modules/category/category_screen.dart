@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,10 +16,17 @@ class CategoryScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
-          return ListView.separated(
-            itemBuilder: (context, index) => buildCategory(context, cubit.categoryModel!.data.data[index]),
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: cubit.categoryModel!.data.data.length,
+          return ConditionalBuilder(
+            condition: cubit.categoryModel != null,
+            builder: (context) => ListView.separated(
+              itemBuilder: (context, index) =>
+                  buildCategory(context, cubit.categoryModel!.data.data[index]),
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: cubit.categoryModel!.data.data.length,
+            ),
+            fallback: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         },
       ),
@@ -28,7 +36,8 @@ class CategoryScreen extends StatelessWidget {
   Widget buildCategory(context, CategoryDataModel model) {
     return Row(
       children: [
-        Image.network(model.image,
+        Image.network(
+          model.image,
           errorBuilder: (context, error, stackTrace) {
             return const Icon(Icons.error);
           },
@@ -38,7 +47,8 @@ class CategoryScreen extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        Text(model.name,
+        Text(
+          model.name,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const Spacer(),
