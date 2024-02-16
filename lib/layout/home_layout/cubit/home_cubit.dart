@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:shop_app/models/category/category_model.dart';
 import 'package:shop_app/shared/network/end_points.dart';
 import 'package:shop_app/shared/network/remote/dio_helper/dio_helper.dart';
 
@@ -13,7 +13,8 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   int currentIndex = 0;
 
-  HomeModel? homeData;
+  HomeModel? homeModel;
+  CategoryModel? categoryModel;
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
@@ -23,18 +24,33 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getHomeData() {
-    homeData = null;
-    emit(GetHomeDataLoadingState());
+    emit(GetDataLoadingState());
     DioHelper.getData(
-      url: 'home',
+      url: Home,
       token: Token,
     ).then((value) {
       print(value.data);
-      homeData = HomeModel.fromJson(value.data);
+      homeModel = HomeModel.fromJson(value.data);
       emit(GetHomeDataSuccessState());
 
     }).catchError((error) {
       emit(GetHomeDataErrorState(error));
+    });
+  }
+
+  void getCategoryData() {
+    categoryModel = null;
+    emit(GetDataLoadingState());
+    DioHelper.getData(
+      url: Categories,
+      token: Token,
+    ).then((value) {
+      print(value.data);
+      categoryModel = CategoryModel.fromJson(value.data);
+      emit(GetCategoryDataSuccessState());
+
+    }).catchError((error) {
+      emit(GetCategoryDataErrorState(error));
     });
   }
 }
