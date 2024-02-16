@@ -8,6 +8,7 @@ import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/models/home/home_model.dart';
 
 import '../../models/category/category_model.dart';
+import '../../shared/components/components.dart';
 import '../../shared/constants/constant.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -106,12 +107,13 @@ class HomeScreen extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   child: Wrap(
-                    alignment:WrapAlignment.spaceEvenly,
+                    alignment: WrapAlignment.spaceEvenly,
                     runSpacing: 10,
                     spacing: 20,
                     children: List.generate(
                       homeModel.data.products.length,
-                      (index) => buildProducts(homeModel.data.products[index]),
+                      (index) => buildProducts(
+                          context, homeModel.data.products[index]),
                     ),
                   ),
                 ),
@@ -155,90 +157,6 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           )
-        ],
-      ),
-    );
-  }
-
-  Widget buildProducts(ProductsModel model) {
-    return Container(
-      width: widthProduct,
-      height: heightProduct,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            alignment: AlignmentDirectional.bottomStart,
-            children: [
-              Image.network(
-                model.image,
-                width: widthProduct,
-                height: 150,
-                fit: BoxFit.fill,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Text('');
-                },
-              ),
-              if (model.discount != 0)
-                Container(
-                  color: AppColors.primaryColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: const Padding(
-                    padding: EdgeInsets.all(3.0),
-                    child: Icon(
-                      Icons.discount_outlined,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            model.name,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Expanded(
-            child: Text(''),
-          ),
-          Row(
-            children: [
-              Text(
-                "${model.price.round()}",
-                style: const TextStyle(
-                  color: AppColors.fourthColor,
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              if (model.discount != 0)
-                Text(
-                  "${model.old_price.round()}",
-                  style: const TextStyle(
-                    decoration: TextDecoration.lineThrough,
-                    color: Colors.grey,
-                  ),
-                ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_outline,
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );

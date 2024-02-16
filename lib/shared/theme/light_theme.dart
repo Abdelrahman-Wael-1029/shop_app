@@ -45,6 +45,18 @@ ThemeData themeDataLight = ThemeData(
 
     ),
   ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(Colors.transparent),
+      foregroundColor: MaterialStateProperty.all(AppColors.fourthColor),
+      shape: MaterialStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+
+    ),
+  ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Colors.white,
     selectedItemColor: AppColors.secondaryColor,
