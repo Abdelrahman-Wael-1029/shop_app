@@ -100,18 +100,19 @@ class HomeScreen extends StatelessWidget {
                         color: AppColors.primaryColor,
                       ),
                 ),
-                GridView.count(
-                  crossAxisCount:
-                      max(MediaQuery.of(context).size.width ~/ widthProduct, 1),
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  mainAxisSpacing: 2,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: widthProduct / heightProduct,
-                  children: List.generate(
-                    homeModel.data.products.length,
-                    (index) => buildProducts(homeModel.data.products[index]),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: double.infinity,
+                  child: Wrap(
+                    alignment:WrapAlignment.spaceEvenly,
+                    runSpacing: 10,
+                    spacing: 20,
+                    children: List.generate(
+                      homeModel.data.products.length,
+                      (index) => buildProducts(homeModel.data.products[index]),
+                    ),
                   ),
                 ),
               ],
@@ -172,7 +173,7 @@ class HomeScreen extends StatelessWidget {
               Image.network(
                 model.image,
                 width: widthProduct,
-                height: 200,
+                height: 150,
                 fit: BoxFit.fill,
                 errorBuilder: (context, error, stackTrace) {
                   return const Text('');
