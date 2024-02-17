@@ -30,7 +30,7 @@ class ShowProduct extends StatelessWidget {
                     alignment: AlignmentDirectional.bottomCenter,
                     children: [
                       Container(
-                        height: 300,
+                        height: heightProduct,
                         child: PageView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) =>
@@ -79,7 +79,7 @@ class ShowProduct extends StatelessWidget {
                   Text(
                     productsModel.price.round().toString(),
                     style: const TextStyle(
-                      color: AppColors.primaryColor,
+                      color: AppColors.fourthColor,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),

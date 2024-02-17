@@ -5,3 +5,5 @@ const String Register = 'register';
 const String Home = 'home';
 
 const String Categories = 'categories';
+
+const String Products = 'products';

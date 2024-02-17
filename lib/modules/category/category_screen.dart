@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/models/category/category_model.dart';
 
+import '../show_category/show_category.dart';
+
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
 
@@ -34,26 +36,37 @@ class CategoryScreen extends StatelessWidget {
   }
 
   Widget buildCategory(context, CategoryDataModel model) {
-    return Row(
-      children: [
-        Image.network(
-          model.image,
-          errorBuilder: (context, error, stackTrace) {
-            return const Icon(Icons.error);
-          },
-          width: 100,
-          height: 100,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          model.name,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const Spacer(),
-        const Icon(Icons.arrow_forward_ios),
-      ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShowCategory(
+                categoryModel: model,
+              ),
+            ));
+      },
+      child: Row(
+        children: [
+          Image.network(
+            model.image,
+            errorBuilder: (context, error, stackTrace) {
+              return const Icon(Icons.error);
+            },
+            width: 100,
+            height: 100,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            model.name,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const Spacer(),
+          const Icon(Icons.arrow_forward_ios),
+        ],
+      ),
     );
   }
 }

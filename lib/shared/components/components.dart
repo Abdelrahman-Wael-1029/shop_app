@@ -3,7 +3,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:shop_app/shared/constants/constant.dart';
 
 import '../../models/home/home_model.dart';
-import '../../modules/product/show_product.dart';
+import '../../modules/show_product/show_product.dart';
 
 Widget defaultTextFormField({
   required Widget label,
@@ -58,6 +58,19 @@ defaultShowToast({
     duration: duration,
     backgroundColor: AppColors.secondaryColor,
     borderRadius: const BorderRadius.all(Radius.circular(10)),
+  );
+}
+
+Widget showProducts(context, List<ProductsModel> products) {
+  return Wrap(
+    alignment: WrapAlignment.spaceEvenly,
+    runSpacing: 10,
+    spacing: 20,
+    children: List.generate(
+      products.length,
+          (index) => buildProducts(
+          context, products[index]),
+    ),
   );
 }
 
@@ -153,3 +166,5 @@ Widget buildProducts(context, ProductsModel model) {
     ),
   );
 }
+
+

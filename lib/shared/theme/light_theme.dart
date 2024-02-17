@@ -11,6 +11,7 @@ ThemeData themeDataLight = ThemeData(
   indicatorColor: AppColors.fourthColor,
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,
+    surfaceTintColor: Colors.transparent,
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.white,

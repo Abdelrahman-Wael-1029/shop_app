@@ -10,6 +10,7 @@ import 'package:shop_app/models/home/home_model.dart';
 import '../../models/category/category_model.dart';
 import '../../shared/components/components.dart';
 import '../../shared/constants/constant.dart';
+import '../show_category/show_category.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -84,6 +85,7 @@ class HomeScreen extends StatelessWidget {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => buildCategoryItem(
+                      context,
                       categoryModel.data.data[index],
                     ),
                     separatorBuilder: (context, index) => const SizedBox(
@@ -106,16 +108,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    runSpacing: 10,
-                    spacing: 20,
-                    children: List.generate(
-                      homeModel.data.products.length,
-                      (index) => buildProducts(
-                          context, homeModel.data.products[index]),
-                    ),
-                  ),
+                  child: showProducts(context, homeModel.data.products),
                 ),
               ],
             ),
@@ -125,39 +118,48 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCategoryItem(CategoryDataModel model) {
-    return Container(
-      width: 150,
-      height: 150,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Image.network(
-            model.image,
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.fill,
-            errorBuilder: (context, error, stackTrace) {
-              return const Icon(
-                Icons.error,
-                color: Colors.red,
-              );
-            },
-          ),
-          Container(
-            width: double.infinity,
-            color: const Color.fromRGBO(0, 0, 0, .8),
-            child: Text(
-              model.name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
+  Widget buildCategoryItem(context, CategoryDataModel model) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return ShowCategory(
+            categoryModel: model,
+          );
+        }));
+      },
+      child: Container(
+        width: 150,
+        height: 150,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Image.network(
+              model.image,
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fill,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                );
+              },
             ),
-          )
-        ],
+            Container(
+              width: double.infinity,
+              color: const Color.fromRGBO(0, 0, 0, .8),
+              child: Text(
+                model.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
