@@ -50,11 +50,17 @@ ThemeData themeDataLight = ThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(Colors.transparent),
       foregroundColor: MaterialStateProperty.all(AppColors.fourthColor),
+      side: MaterialStateProperty.all(
+        const BorderSide(
+          color: AppColors.fourthColor,
+        ),
+      ),
       shape: MaterialStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
+
 
     ),
   ),

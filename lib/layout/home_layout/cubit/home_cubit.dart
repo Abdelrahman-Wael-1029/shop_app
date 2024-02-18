@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/category/category_model.dart';
@@ -13,8 +14,9 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   int currentIndex = 0;
 
-  HomeModel? homeModel;
-  CategoryModel? categoryModel;
+  HomeModel? homeModel; // for all pruducts in home
+  CategoryModel? categoryModel; // for all categories
+  List<ProductsModel> productsModel = [];  // for all products in category screen
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
@@ -32,7 +34,6 @@ class HomeCubit extends Cubit<HomeState> {
       print(value.data);
       homeModel = HomeModel.fromJson(value.data);
       emit(GetHomeDataSuccessState());
-
     }).catchError((error) {
       emit(GetHomeDataErrorState(error));
     });
@@ -45,12 +46,71 @@ class HomeCubit extends Cubit<HomeState> {
       url: Categories,
       token: Token,
     ).then((value) {
-      print(value.data);
       categoryModel = CategoryModel.fromJson(value.data);
       emit(GetCategoryDataSuccessState());
-
     }).catchError((error) {
       emit(GetCategoryDataErrorState(error));
+    });
+  }
+
+  void changeFavorite(ProductsModel productsModel) {
+    productsModel.in_favorites = !productsModel.in_favorites;
+    emit(ChangeFavoriteSuccessState());
+    DioHelper.postData(
+      url: Favourites,
+      token: Token,
+      data: FormData.fromMap(
+        {
+          'product_id': productsModel.id,
+        },
+      ),
+    ).then((value) {
+      if (value.data['status'] == false) {
+        throw 'Not change favorite status';
+      }
+      homeModel!.data.products.forEach((element) {
+        if (element.id == productsModel.id) {
+          element.in_favorites = productsModel.in_favorites;
+        }
+      });
+
+      emit(ChangeFavoriteSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      productsModel.in_favorites = !productsModel.in_favorites;
+
+      homeModel!.data.products.forEach((element) {
+        if (element.id == productsModel.id) {
+          element.in_favorites = productsModel.in_favorites;
+        }
+      });
+
+      emit(ChangeFavoriteErrorState());
+    });
+  }
+
+
+  void getCategoryProducts(CategoryDataModel categoryModel) {
+    productsModel = [];
+    emit(ShowCategoryLoadingGetProducts());
+
+    DioHelper.getData(
+      url: Products,
+      token: Token,
+      query: {
+        'category_id': categoryModel.id,
+      },
+    ).then((value) {
+      productsModel = [];
+
+      value.data['data']['data'].forEach((element) {
+        productsModel.add(ProductsModel.fromJson(element));
+      });
+      print(productsModel[0]);
+      emit(ShowCategorySuccessGetProducts());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShowCategoryErrorGetProducts());
     });
   }
 }

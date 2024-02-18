@@ -14,6 +14,6 @@ class AppColors{
 
 String Token = '';
 
-double widthProduct = 200;
+const double widthProduct = 200;
 
-double heightProduct = 275;
+const double heightProduct = 275;

@@ -108,7 +108,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  child: showProducts(context, homeModel.data.products),
+                  child: showProducts(
+                    context,
+                    homeModel.data.products,
+                  ),
                 ),
               ],
             ),
@@ -119,13 +122,16 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget buildCategoryItem(context, CategoryDataModel model) {
+    var cubit = HomeCubit.get(context);
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return ShowCategory(
-            categoryModel: model,
-          );
-        }));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ShowCategory(
+              categoryModel: model,
+            ),
+          ),
+        );
       },
       child: Container(
         width: 150,

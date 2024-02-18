@@ -33,7 +33,7 @@ class _OnBoardingState extends State<OnBoardingScreen> {
 
   void submit() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   var pagesView = [

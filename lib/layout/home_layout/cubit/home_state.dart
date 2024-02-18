@@ -24,3 +24,13 @@ class GetCategoryDataErrorState extends HomeState {
 
   GetCategoryDataErrorState(this.error);
 }
+
+class ChangeFavoriteSuccessState extends HomeState {}
+
+class ChangeFavoriteErrorState extends HomeState {}
+
+class ShowCategoryLoadingGetProducts extends HomeState {}
+
+class ShowCategorySuccessGetProducts extends HomeState {}
+
+class ShowCategoryErrorGetProducts extends HomeState {}

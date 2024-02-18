@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/modules/login/login_screen.dart';
 import 'package:shop_app/modules/onboarding/onboarding_screen.dart';
 import 'package:shop_app/shared/bloc_observer.dart';
@@ -21,11 +23,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: OnBoardingScreen(),
-      theme: themeDataLight,
-      debugShowCheckedModeBanner: false,
+    return BlocProvider(
+      create: (context) => HomeCubit()..getCategoryData()..getHomeData(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        home: const OnBoardingScreen(),
+        theme: themeDataLight,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

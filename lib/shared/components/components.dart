@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:shop_app/shared/constants/constant.dart';
 
+import '../../layout/home_layout/cubit/home_cubit.dart';
 import '../../models/home/home_model.dart';
 import '../../modules/show_product/show_product.dart';
 
@@ -61,20 +63,35 @@ defaultShowToast({
   );
 }
 
-Widget showProducts(context, List<ProductsModel> products) {
+Widget showProducts(
+  context,
+  List<ProductsModel> products, {
+
+  double heightProduct = heightProduct,
+  double widthProduct = widthProduct,
+}) {
   return Wrap(
     alignment: WrapAlignment.spaceEvenly,
     runSpacing: 10,
     spacing: 20,
     children: List.generate(
       products.length,
-          (index) => buildProducts(
-          context, products[index]),
+      (index) => buildProducts(
+        context,
+        products[index],
+        heightProduct: heightProduct,
+        widthProduct: widthProduct,
+      ),
     ),
   );
 }
 
-Widget buildProducts(context, ProductsModel model) {
+Widget buildProducts(
+  context,
+  ProductsModel model, {
+  double heightProduct = heightProduct,
+  double widthProduct = widthProduct,
+}) {
   return InkWell(
     onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -154,9 +171,11 @@ Widget buildProducts(context, ProductsModel model) {
                 ),
               const Spacer(),
               IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_outline,
+                onPressed: () {
+                  BlocProvider.of<HomeCubit>(context).changeFavorite(model);
+                },
+                icon: favoriteIcon(
+                  model.in_favorites,
                 ),
               ),
             ],
@@ -164,6 +183,13 @@ Widget buildProducts(context, ProductsModel model) {
         ],
       ),
     ),
+  );
+}
+
+Widget favoriteIcon(bool isFavorite) {
+  return Icon(
+    (isFavorite) ? Icons.favorite : Icons.favorite_border,
+    color: AppColors.secondaryColor,
   );
 }
 

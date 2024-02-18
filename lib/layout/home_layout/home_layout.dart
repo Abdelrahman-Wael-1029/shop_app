@@ -20,45 +20,46 @@ class HomeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit()..getHomeData()..getCategoryData(),
-      child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = HomeCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(
-                title: const Text('shoppy'),
-                surfaceTintColor: Colors.transparent),
-            body: screens[cubit.currentIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.apps),
-                  label: 'Categories',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'Favorites',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-              ],
-              type: BottomNavigationBarType.fixed,
-              onTap: (index) {
-                cubit.changeIndex(index);
-              },
-            ),
-          );
-        },
-      ),
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        if( state is ChangeFavoriteSuccessState){
+          print("change favorite success");
+        }
+      },
+      builder: (context, state) {
+        var cubit = HomeCubit.get(context);
+        return Scaffold(
+          appBar: AppBar(
+              title: const Text('shoppy'),
+              surfaceTintColor: Colors.transparent),
+          body: screens[cubit.currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: cubit.currentIndex,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.apps),
+                label: 'Categories',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
+            onTap: (index) {
+              cubit.changeIndex(index);
+            },
+          ),
+        );
+      },
     );
   }
 }
