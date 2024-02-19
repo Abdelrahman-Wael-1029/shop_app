@@ -39,6 +39,23 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  List<ProductsModel> favoritesProducts = [];
+
+  void getFavoritesProducts(){
+    favoritesProducts = [];
+    try{
+    emit(GetFavoritesLoading());
+    homeModel!.data.products.forEach((element) {
+      if (element.in_favorites) {
+        favoritesProducts.add(element);
+      }
+    });
+    emit(GetFavoritesSuccess());
+    }catch(error){
+      emit(GetFavoritesError());
+    }
+  }
+
   void getCategoryData() {
     categoryModel = null;
     emit(GetDataLoadingState());

@@ -34,3 +34,9 @@ class ShowCategoryLoadingGetProducts extends HomeState {}
 class ShowCategorySuccessGetProducts extends HomeState {}
 
 class ShowCategoryErrorGetProducts extends HomeState {}
+
+class GetFavoritesLoading extends HomeState {}
+
+class GetFavoritesSuccess extends HomeState {}
+
+class GetFavoritesError extends HomeState {}

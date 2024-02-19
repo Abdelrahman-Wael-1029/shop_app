@@ -66,9 +66,9 @@ defaultShowToast({
 Widget showProducts(
   context,
   List<ProductsModel> products, {
-
   double heightProduct = heightProduct,
   double widthProduct = widthProduct,
+  bool showFavIcon = true,
 }) {
   return Wrap(
     alignment: WrapAlignment.spaceEvenly,
@@ -81,6 +81,7 @@ Widget showProducts(
         products[index],
         heightProduct: heightProduct,
         widthProduct: widthProduct,
+        showFavIcon: showFavIcon,
       ),
     ),
   );
@@ -91,6 +92,7 @@ Widget buildProducts(
   ProductsModel model, {
   double heightProduct = heightProduct,
   double widthProduct = widthProduct,
+  bool showFavIcon = true,
 }) {
   return InkWell(
     onTap: () {
@@ -170,14 +172,15 @@ Widget buildProducts(
                   ),
                 ),
               const Spacer(),
-              IconButton(
-                onPressed: () {
-                  BlocProvider.of<HomeCubit>(context).changeFavorite(model);
-                },
-                icon: favoriteIcon(
-                  model.in_favorites,
+              if (showFavIcon)
+                IconButton(
+                  onPressed: () {
+                    BlocProvider.of<HomeCubit>(context).changeFavorite(model);
+                  },
+                  icon: favoriteIcon(
+                    model.in_favorites,
+                  ),
                 ),
-              ),
             ],
           ),
         ],
@@ -192,5 +195,3 @@ Widget favoriteIcon(bool isFavorite) {
     color: AppColors.secondaryColor,
   );
 }
-
-
