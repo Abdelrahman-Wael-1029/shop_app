@@ -12,7 +12,7 @@ import '../../../shared/constants/constant.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial()){
+  HomeCubit() : super(HomeInitial()) {
     loadSystemMode();
   }
 
@@ -21,7 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeModel? homeModel; // for all pruducts in home
   CategoryModel? categoryModel; // for all categories
-  List<ProductsModel> productsModel = [];  // for all products in category screen
+  List<ProductsModel> productsModel = []; // for all products in category screen
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
@@ -32,14 +32,16 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  void changeDarkMode() {
+    isDark = !isDark;
+    CacheHelper.putData(key: 'isDark', value: isDark).then((value) {
+      emit(ChangeDarkModeState());
+    });
+  }
+
   void changeIndex(int index) {
     currentIndex = index;
     emit(ChangeBottomNavState());
-  }
-
-  void changeDarkMode() {
-    isDark = !isDark;
-    emit(ChangeDarkModeState());
   }
 
   void getHomeData() {
@@ -58,17 +60,17 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<ProductsModel> favoritesProducts = [];
 
-  void getFavoritesProducts(){
+  void getFavoritesProducts() {
     favoritesProducts = [];
-    try{
-    emit(GetFavoritesLoading());
-    homeModel!.data.products.forEach((element) {
-      if (element.in_favorites) {
-        favoritesProducts.add(element);
-      }
-    });
-    emit(GetFavoritesSuccess());
-    }catch(error){
+    try {
+      emit(GetFavoritesLoading());
+      homeModel!.data.products.forEach((element) {
+        if (element.in_favorites) {
+          favoritesProducts.add(element);
+        }
+      });
+      emit(GetFavoritesSuccess());
+    } catch (error) {
       emit(GetFavoritesError());
     }
   }
@@ -122,7 +124,6 @@ class HomeCubit extends Cubit<HomeState> {
       emit(ChangeFavoriteErrorState());
     });
   }
-
 
   void getCategoryProducts(CategoryDataModel categoryModel) {
     productsModel = [];
