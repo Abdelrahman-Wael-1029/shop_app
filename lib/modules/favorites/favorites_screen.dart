@@ -22,7 +22,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -44,12 +44,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               builder: (context, state) {
                 var cubit = HomeCubit.get(context);
                 return ConditionalBuilder(
-                  condition: cubit.favoritesProducts.isNotEmpty,
-                  builder: (context) => showProducts(
-                    context,
-                    cubit.favoritesProducts,
-                    widthProduct: MediaQuery.of(context).size.width * .4,
-                    showFavIcon: false,
+                  condition: cubit.favoritesProducts != null,
+                  builder: (context) => ConditionalBuilder(
+                    condition: cubit.favoritesProducts!.length > 0,
+                    builder: (context)=> showProducts(
+                      context,
+                      cubit.favoritesProducts!,
+                      widthProduct: MediaQuery.of(context).size.width * .4,
+                      showFavIcon: false,
+                    ),
+                    fallback: (context) => const Center(
+                      child: Text("No Favorites Yet"),
+                    ),
                   ),
                   fallback: (context) => const Center(
                     child: CircularProgressIndicator(),
