@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/category/category_model.dart';
 import 'package:shop_app/shared/network/end_points.dart';
+import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio_helper/dio_helper.dart';
 
 import '../../../models/home/home_model.dart';
@@ -11,14 +12,32 @@ import '../../../shared/constants/constant.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit() : super(HomeInitial()) {
+    loadSystemMode();
+  }
+
   int currentIndex = 0;
+  bool isDark = false;
 
   HomeModel? homeModel; // for all pruducts in home
   CategoryModel? categoryModel; // for all categories
-  List<ProductsModel> productsModel = [];  // for all products in category screen
+  List<ProductsModel> productsModel = []; // for all products in category screen
 
   static HomeCubit get(context) => BlocProvider.of(context);
+
+  void loadSystemMode() {
+    CacheHelper.getData(key: 'isDark').then((value) {
+      isDark = value ?? false;
+      emit(ChangeDarkModeState());
+    });
+  }
+
+  void changeDarkMode() {
+    isDark = !isDark;
+    CacheHelper.putData(key: 'isDark', value: isDark).then((value) {
+      emit(ChangeDarkModeState());
+    });
+  }
 
   void changeIndex(int index) {
     currentIndex = index;
@@ -41,17 +60,17 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<ProductsModel> favoritesProducts = [];
 
-  void getFavoritesProducts(){
+  void getFavoritesProducts() {
     favoritesProducts = [];
-    try{
-    emit(GetFavoritesLoading());
-    homeModel!.data.products.forEach((element) {
-      if (element.in_favorites) {
-        favoritesProducts.add(element);
-      }
-    });
-    emit(GetFavoritesSuccess());
-    }catch(error){
+    try {
+      emit(GetFavoritesLoading());
+      homeModel!.data.products.forEach((element) {
+        if (element.in_favorites) {
+          favoritesProducts.add(element);
+        }
+      });
+      emit(GetFavoritesSuccess());
+    } catch (error) {
       emit(GetFavoritesError());
     }
   }
@@ -105,7 +124,6 @@ class HomeCubit extends Cubit<HomeState> {
       emit(ChangeFavoriteErrorState());
     });
   }
-
 
   void getCategoryProducts(CategoryDataModel categoryModel) {
     productsModel = [];

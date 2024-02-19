@@ -38,7 +38,69 @@ ThemeData themeDataLight = ThemeData(
       ),
     ),
 
+
+
   ),
+  textTheme: const TextTheme(
+    displayLarge: TextStyle(
+      fontSize: 72.0,
+      fontWeight: FontWeight.bold,
+      color: AppColors.primaryColor,
+    ),
+    displayMedium: TextStyle(
+      fontSize: 36.0,
+      fontWeight: FontWeight.bold,
+      color: AppColors.primaryColor,
+    ),
+    displaySmall: TextStyle(
+      fontSize: 24.0,
+      fontWeight: FontWeight.bold,
+      color: AppColors.primaryColor,
+    ),
+
+    bodyLarge: TextStyle(
+      fontSize: 20.0,
+      color: Colors.black,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 18.0,
+      color: Colors.black,
+    ),
+    bodySmall: TextStyle(
+      fontSize: 16.0,
+      color: Colors.black,
+    ),
+
+    headlineLarge: TextStyle(
+      fontSize: 24.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
+    headlineMedium: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
+
+    labelLarge: TextStyle(
+      fontSize: 20.0,
+      color: Colors.black,
+    ),
+    labelMedium: TextStyle(
+      fontSize: 18.0,
+      color: Colors.black,
+    ),
+    labelSmall: TextStyle(
+      fontSize: 16.0,
+      color: Colors.black,
+    ),
+  ),
+
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(Colors.transparent),

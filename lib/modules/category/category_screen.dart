@@ -60,7 +60,7 @@ class CategoryScreen extends StatelessWidget {
           ),
           Text(
             model.name,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           const Spacer(),
           const Icon(Icons.arrow_forward_ios),

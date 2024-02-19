@@ -40,3 +40,5 @@ class GetFavoritesLoading extends HomeState {}
 class GetFavoritesSuccess extends HomeState {}
 
 class GetFavoritesError extends HomeState {}
+
+class ChangeDarkModeState extends HomeState {}

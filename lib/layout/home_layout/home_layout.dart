@@ -3,10 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
+import 'package:shop_app/shared/network/local/cache_helper.dart';
 
 import '../../modules/category/category_screen.dart';
 import '../../modules/favorites/favorites_screen.dart';
 import '../../modules/settings/settings_screen.dart';
+import '../../shared/constants/constant.dart';
 
 class HomeLayout extends StatelessWidget {
   HomeLayout({super.key});
@@ -22,7 +24,7 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if( state is ChangeFavoriteSuccessState){
+        if (state is ChangeFavoriteSuccessState) {
           print("change favorite success");
         }
       },
@@ -30,8 +32,18 @@ class HomeLayout extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return Scaffold(
           appBar: AppBar(
-              title: const Text('shoppy'),
-              surfaceTintColor: Colors.transparent),
+            title: const Text('shoppy'),
+            surfaceTintColor: Colors.transparent,
+            actions: [
+            //   change mode
+              IconButton(
+                onPressed: () {
+                  cubit.changeDarkMode();
+                },
+                icon: const Icon(Icons.brightness_4_outlined),
+              ),
+            ],
+          ),
           body: screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
