@@ -6,6 +6,7 @@ import 'package:shop_app/shared/constants/constant.dart';
 import '../../layout/home_layout/cubit/home_cubit.dart';
 import '../../models/home/home_model.dart';
 import '../../modules/show_product/show_product.dart';
+import '../styles/style.dart';
 
 Widget defaultTextFormField({
   required Widget label,
@@ -141,10 +142,7 @@ Widget buildProducts(
             model.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(
             height: 10,
@@ -156,21 +154,25 @@ Widget buildProducts(
             children: [
               Text(
                 "${model.price.round()}",
-                style: const TextStyle(
-                  color: AppColors.fourthColor,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color:getColorPrice(context),
+                    ),
               ),
               const SizedBox(
                 width: 5,
               ),
               if (model.discount != 0)
+              // white lineThrough
                 Text(
                   "${model.old_price.round()}",
-                  style: const TextStyle(
+                  style: TextStyle(
                     decoration: TextDecoration.lineThrough,
                     color: Colors.grey,
+                    decorationColor:  Theme.of(context).textTheme.bodyMedium!.color,
                   ),
+
                 ),
+
               const Spacer(),
               if (showFavIcon)
                 IconButton(

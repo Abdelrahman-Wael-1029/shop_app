@@ -5,6 +5,7 @@ import 'package:shop_app/models/home/home_model.dart';
 import 'package:shop_app/shared/constants/constant.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../shared/components/components.dart';
+import '../../shared/styles/style.dart';
 
 class ShowProduct extends StatelessWidget {
   ShowProduct({
@@ -84,8 +85,8 @@ class ShowProduct extends StatelessWidget {
                       ),
                       Text(
                         productsModel.price.round().toString(),
-                        style: const TextStyle(
-                          color: AppColors.fourthColor,
+                        style: TextStyle(
+                          color: getColorPrice(context),
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),

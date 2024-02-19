@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/category/category_model.dart';
 import 'package:shop_app/shared/network/end_points.dart';
+import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio_helper/dio_helper.dart';
 
 import '../../../models/home/home_model.dart';
@@ -11,8 +12,12 @@ import '../../../shared/constants/constant.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit() : super(HomeInitial()){
+    loadSystemMode();
+  }
+
   int currentIndex = 0;
+  bool isDark = false;
 
   HomeModel? homeModel; // for all pruducts in home
   CategoryModel? categoryModel; // for all categories
@@ -20,9 +25,21 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
+  void loadSystemMode() {
+    CacheHelper.getData(key: 'isDark').then((value) {
+      isDark = value ?? false;
+      emit(ChangeDarkModeState());
+    });
+  }
+
   void changeIndex(int index) {
     currentIndex = index;
     emit(ChangeBottomNavState());
+  }
+
+  void changeDarkMode() {
+    isDark = !isDark;
+    emit(ChangeDarkModeState());
   }
 
   void getHomeData() {

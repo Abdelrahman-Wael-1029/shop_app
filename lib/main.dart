@@ -1,12 +1,12 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
-import 'package:shop_app/modules/login/login_screen.dart';
 import 'package:shop_app/modules/onboarding/onboarding_screen.dart';
 import 'package:shop_app/shared/bloc_observer.dart';
+import 'package:shop_app/shared/constants/constant.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio_helper/dio_helper.dart';
+import 'package:shop_app/shared/theme/dark_theme.dart';
 import 'package:shop_app/shared/theme/light_theme.dart';
 
 void main() {
@@ -24,12 +24,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getCategoryData()..getHomeData(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        home: const OnBoardingScreen(),
-        theme: themeDataLight,
-        debugShowCheckedModeBanner: false,
+      create: (context) =>
+      HomeCubit()
+        ..getCategoryData()
+        ..getHomeData(),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            home: const OnBoardingScreen(),
+            theme: themeDataLight,
+            darkTheme: themeDataDark,
+            themeMode: HomeCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }
