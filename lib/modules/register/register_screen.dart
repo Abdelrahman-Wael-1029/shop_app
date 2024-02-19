@@ -72,9 +72,13 @@ class RegisterScreen extends StatelessWidget {
                           defaultTextFormField(
                             keyboardType: TextInputType.text,
                             controller: nameController,
-                            label: const Text('Name'),
-                            prefixIcon: const Icon(
+                            label: Text(
+                              'Name',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            prefixIcon: Icon(
                               Icons.person,
+                              color: Theme.of(context).iconTheme.color,
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -89,9 +93,13 @@ class RegisterScreen extends StatelessWidget {
                           defaultTextFormField(
                             keyboardType: TextInputType.phone,
                             controller: phoneController,
-                            label: const Text('Phone Number'),
-                            prefixIcon: const Icon(
+                            label: Text(
+                              'Phone Number',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            prefixIcon: Icon(
                               Icons.phone,
+                              color: Theme.of(context).iconTheme.color,
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -106,9 +114,13 @@ class RegisterScreen extends StatelessWidget {
                           defaultTextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: emailController,
-                            label: const Text('Email'),
-                            prefixIcon: const Icon(
+                            label: Text(
+                              'Email',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            prefixIcon: Icon(
                               Icons.email,
+                              color: Theme.of(context).iconTheme.color,
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -127,13 +139,20 @@ class RegisterScreen extends StatelessWidget {
                           defaultTextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             controller: passwordController,
-                            label: const Text('Password'),
-                            prefixIcon: const Icon(
+                            label: Text(
+                              'Password',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            prefixIcon: Icon(
                               Icons.lock,
+                              color: Theme.of(context).iconTheme.color,
                             ),
                             obscureText: registerCubig.isPassword,
                             suffixIcon: IconButton(
-                              icon: Icon(registerCubig.suffixIcon),
+                              icon: Icon(
+                                registerCubig.suffixIcon,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                               onPressed: () {
                                 registerCubig.changePasswordVisibility();
                               },

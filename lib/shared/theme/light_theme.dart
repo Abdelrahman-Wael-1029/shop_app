@@ -37,25 +37,24 @@ ThemeData themeDataLight = ThemeData(
         ),
       ),
     ),
-
-
-
   ),
   textTheme: const TextTheme(
     displayLarge: TextStyle(
       fontSize: 72.0,
       fontWeight: FontWeight.bold,
-      color: AppColors.primaryColor,
+      color: Colors.black,
+
     ),
     displayMedium: TextStyle(
       fontSize: 36.0,
       fontWeight: FontWeight.bold,
-      color: AppColors.primaryColor,
+      color: Colors.black,
+
     ),
     displaySmall: TextStyle(
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
-      color: AppColors.primaryColor,
+      color: Colors.black,
     ),
 
     bodyLarge: TextStyle(
@@ -96,6 +95,21 @@ ThemeData themeDataLight = ThemeData(
       color: Colors.black,
     ),
     labelSmall: TextStyle(
+      fontSize: 16.0,
+      color: Colors.black,
+    ),
+
+    titleLarge: TextStyle(
+      fontSize: 20.0,
+      color: Colors.black,
+    ),
+
+    titleMedium: TextStyle(
+      fontSize: 18.0,
+      color: Colors.black,
+    ),
+
+    titleSmall: TextStyle(
       fontSize: 16.0,
       color: Colors.black,
     ),

@@ -115,20 +115,14 @@ class _OnBoardingState extends State<OnBoardingScreen> {
         ),
         Text(
           onBoardingModel.title,
-          style: getHeadlineTextStyle(
-            context,
-            screenHeight: MediaQuery.of(context).size.height.toInt(),
-          ),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         const SizedBox(
           height: 20,
         ),
         Text(
           onBoardingModel.body,
-          style: getBodyTextStyle(
-            context,
-            screenHeight: MediaQuery.of(context).size.height.toInt(),
-          ),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(
           height: 20,
@@ -143,11 +137,8 @@ class _OnBoardingState extends State<OnBoardingScreen> {
               },
               child: Text(
                 'GET STARTED',
-                style: getLabelTextStyle(
-                  context,
-                  screenHeight: MediaQuery.of(context).size.height.toInt(),
-                )?.copyWith(
-                  color: Colors.white,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: Colors.white,
                 ),
               ),
             );

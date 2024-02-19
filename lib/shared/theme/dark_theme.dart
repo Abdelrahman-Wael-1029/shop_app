@@ -7,7 +7,7 @@ const backgroundColor = Color(0xFF2B2B2C);
 
 ThemeData themeDataDark = ThemeData(
   primaryColor: AppColors.primaryColor,
-  scaffoldBackgroundColor:backgroundColor,
+  scaffoldBackgroundColor: backgroundColor,
   colorScheme: ColorScheme.fromSeed(
     seedColor: AppColors.primaryColor,
     surface: Colors.white,
@@ -15,19 +15,17 @@ ThemeData themeDataDark = ThemeData(
     onBackground: Colors.white,
   ),
   indicatorColor: AppColors.fourthColor,
-
   appBarTheme: const AppBarTheme(
     backgroundColor: backgroundColor,
     foregroundColor: Colors.white,
     surfaceTintColor: Colors.transparent,
     elevation: 0,
-
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: backgroundColor,
       statusBarIconBrightness: Brightness.light,
     ),
     iconTheme: IconThemeData(
-       color: Colors.white,
+      color: Colors.white,
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -47,12 +45,10 @@ ThemeData themeDataDark = ThemeData(
       ),
     ),
   ),
-
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(Colors.transparent),
       foregroundColor: MaterialStateProperty.all(AppColors.fourthColor),
-
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
@@ -69,8 +65,6 @@ ThemeData themeDataDark = ThemeData(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-
-
     ),
   ),
   iconTheme: const IconThemeData(
@@ -87,19 +81,18 @@ ThemeData themeDataDark = ThemeData(
     displayLarge: TextStyle(
       fontSize: 72.0,
       fontWeight: FontWeight.bold,
-      color: AppColors.primaryColor,
+      color: Colors.white,
     ),
     displayMedium: TextStyle(
       fontSize: 36.0,
       fontWeight: FontWeight.bold,
-      color: AppColors.primaryColor,
+      color: Colors.white,
     ),
     displaySmall: TextStyle(
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
-      color: AppColors.primaryColor,
+      color: Colors.white,
     ),
-
     bodyLarge: TextStyle(
       fontSize: 20.0,
       color: Colors.white,
@@ -112,7 +105,6 @@ ThemeData themeDataDark = ThemeData(
       fontSize: 16.0,
       color: Colors.white,
     ),
-
     headlineLarge: TextStyle(
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
@@ -128,7 +120,6 @@ ThemeData themeDataDark = ThemeData(
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
-
     labelLarge: TextStyle(
       fontSize: 20.0,
       color: Colors.white,
@@ -139,6 +130,21 @@ ThemeData themeDataDark = ThemeData(
     ),
     labelSmall: TextStyle(
       fontSize: 16.0,
+      color: Colors.white,
+    ),
+    titleLarge: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
+    titleMedium: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
+    titleSmall: TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
   ),

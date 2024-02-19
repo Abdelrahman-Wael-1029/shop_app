@@ -86,9 +86,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           defaultTextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: emailController,
-                            label: const Text('email'),
-                            prefixIcon: const Icon(
+                            label: Text(
+                              'email',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            prefixIcon: Icon(
                               Icons.email,
+                              color: Theme.of(context).iconTheme.color,
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -109,9 +113,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           defaultTextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             controller: passwordController,
-                            label: const Text('password'),
-                            prefixIcon: const Icon(
+                            label: Text(
+                              'password',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            prefixIcon: Icon(
                               Icons.lock,
+                              color: Theme.of(context).iconTheme.color,
                             ),
                             obscureText: loginCubit.isPassword,
                             suffixIcon: IconButton(

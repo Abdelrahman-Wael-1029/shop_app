@@ -53,8 +53,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       widthProduct: MediaQuery.of(context).size.width * .4,
                       showFavIcon: false,
                     ),
-                    fallback: (context) => const Center(
-                      child: Text("No Favorites Yet"),
+                    fallback: (context) =>  Center(
+                      child: Text("No Favorites Yet",
+                        style : Theme.of(context).textTheme.displayMedium,
+                      ),
                     ),
                   ),
                   fallback: (context) => const Center(

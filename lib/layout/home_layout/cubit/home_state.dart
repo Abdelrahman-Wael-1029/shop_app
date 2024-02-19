@@ -42,3 +42,5 @@ class GetFavoritesSuccess extends HomeState {}
 class GetFavoritesError extends HomeState {}
 
 class ChangeDarkModeState extends HomeState {}
+
+class LogoutSuccessState extends HomeState {}

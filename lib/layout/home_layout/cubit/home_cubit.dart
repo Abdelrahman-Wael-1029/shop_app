@@ -148,4 +148,11 @@ class HomeCubit extends Cubit<HomeState> {
       emit(ShowCategoryErrorGetProducts());
     });
   }
+
+  void logout() {
+    CacheHelper.removeData(key: 'token').then((value) {
+      Token = '';
+      emit(LogoutSuccessState());
+    });
+  }
 }
