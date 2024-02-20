@@ -72,10 +72,7 @@ class ShowProduct extends StatelessWidget {
                       Expanded(
                         child: Text(
                           productsModel.name,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: getHeadlineTextStyle(context),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -85,10 +82,8 @@ class ShowProduct extends StatelessWidget {
                       ),
                       Text(
                         productsModel.price.round().toString(),
-                        style: TextStyle(
+                        style: getHeadlineTextStyle(context)!.copyWith(
                           color: getColorPrice(context),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],

@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
+import 'package:shop_app/shared/styles/style.dart';
 
 import '../../models/category/category_model.dart';
 import '../../models/home/home_model.dart';
@@ -58,7 +59,7 @@ class _ShowCategoryState extends State<ShowCategory> {
               ),
               Text(
                 "List of ${widget.categoryModel.name} Products:",
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                style: getDisplayTextStyle(context)!.copyWith(
                       color: AppColors.primaryColor,
                     ),
               ),

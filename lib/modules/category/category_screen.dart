@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/models/category/category_model.dart';
+import 'package:shop_app/shared/styles/style.dart';
 
 import '../show_category/show_category.dart';
 
@@ -58,10 +59,13 @@ class CategoryScreen extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Text(
-            model.name,
+          Expanded(
+            child: Text(
+              model.name,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
-          const Spacer(),
           const Icon(Icons.arrow_forward_ios),
         ],
       ),

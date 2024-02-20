@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
-import 'package:shop_app/modules/login/login_screen.dart';
+import 'package:shop_app/modules/profile/profile_screen.dart';
+import '../../shared/components/components.dart';
 
 class SettingsModel {
   final String title;
@@ -32,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: 'Edit Profile',
         icon: Icons.edit,
         onTap: () {
-          print('Edit Profile');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
         },
       ),
       SettingsModel(
@@ -52,13 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         endArrow: false,
         icon: Icons.logout,
         onTap: () {
-          HomeCubit.get(context).logout();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const LoginScreen(),
-            ),
-          );
+          logout(context);
         },
       ),
     ];

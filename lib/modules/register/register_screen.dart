@@ -58,7 +58,7 @@ class RegisterScreen extends StatelessWidget {
                       }
                     },
                     builder: (context, state) {
-                      var registerCubig = RegisterCubit.get(context);
+                      var registerCubit = RegisterCubit.get(context);
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -147,14 +147,14 @@ class RegisterScreen extends StatelessWidget {
                               Icons.lock,
                               color: Theme.of(context).iconTheme.color,
                             ),
-                            obscureText: registerCubig.isPassword,
+                            obscureText: registerCubit.isPassword,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                registerCubig.suffixIcon,
+                                registerCubit.suffixIcon,
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               onPressed: () {
-                                registerCubig.changePasswordVisibility();
+                                registerCubit.changePasswordVisibility();
                               },
                             ),
                             validator: (value) {
@@ -170,10 +170,11 @@ class RegisterScreen extends StatelessWidget {
                           ConditionalBuilder(
                             condition: state is! RegisterLoading,
                             builder: (context) => defaultFormButton(
+                              context: context,
                               text: 'Register',
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  registerCubig.register(
+                                  registerCubit.register(
                                     email: emailController.text,
                                     password: passwordController.text,
                                     name: nameController.text,

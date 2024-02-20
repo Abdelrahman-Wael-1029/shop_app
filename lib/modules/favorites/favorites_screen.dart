@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/shared/styles/style.dart';
 
 import '../../layout/home_layout/cubit/home_cubit.dart';
 import '../../shared/components/components.dart';
@@ -30,7 +31,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           children: [
             Text(
               "My Favorites",
-              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              style: getDisplayTextStyle(context)!.copyWith(
                     color: AppColors.primaryColor,
                   ),
             ),
@@ -46,7 +47,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 return ConditionalBuilder(
                   condition: cubit.favoritesProducts != null,
                   builder: (context) => ConditionalBuilder(
-                    condition: cubit.favoritesProducts!.length > 0,
+                    condition: cubit.favoritesProducts!.isNotEmpty,
                     builder: (context)=> showProducts(
                       context,
                       cubit.favoritesProducts!,
@@ -55,7 +56,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ),
                     fallback: (context) =>  Center(
                       child: Text("No Favorites Yet",
-                        style : Theme.of(context).textTheme.displayMedium,
+                        style : getDisplayTextStyle(context),
                       ),
                     ),
                   ),

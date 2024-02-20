@@ -5,6 +5,7 @@ import 'package:shop_app/shared/constants/constant.dart';
 
 import '../../layout/home_layout/cubit/home_cubit.dart';
 import '../../models/home/home_model.dart';
+import '../../modules/login/login_screen.dart';
 import '../../modules/show_product/show_product.dart';
 import '../styles/style.dart';
 
@@ -34,6 +35,7 @@ Widget defaultTextFormField({
 }
 
 Widget defaultFormButton({
+ required context,
   required String text,
   required Function() onPressed,
 }) {
@@ -44,6 +46,9 @@ Widget defaultFormButton({
     textColor: Colors.white,
     child: Text(
       text,
+      style: getLabelTextStyle(context)!.copyWith(
+        color: Colors.white,
+      ),
     ),
   );
 }
@@ -142,7 +147,7 @@ Widget buildProducts(
             model.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: getHeadlineTextStyle(context),
           ),
           const SizedBox(
             height: 10,
@@ -154,25 +159,24 @@ Widget buildProducts(
             children: [
               Text(
                 "${model.price.round()}",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color:getColorPrice(context),
+                style: getBodyTextStyle(context)!.copyWith(
+                      color: getColorPrice(context),
                     ),
               ),
               const SizedBox(
                 width: 5,
               ),
               if (model.discount != 0)
-              // white lineThrough
+                // white lineThrough
                 Text(
                   "${model.old_price.round()}",
                   style: TextStyle(
                     decoration: TextDecoration.lineThrough,
                     color: Colors.grey,
-                    decorationColor:  Theme.of(context).textTheme.bodyMedium!.color,
+                    decorationColor:
+                        Theme.of(context).textTheme.bodyMedium!.color,
                   ),
-
                 ),
-
               const Spacer(),
               if (showFavIcon)
                 IconButton(
@@ -195,5 +199,15 @@ Widget favoriteIcon(bool isFavorite) {
   return Icon(
     (isFavorite) ? Icons.favorite : Icons.favorite_border,
     color: AppColors.secondaryColor,
+  );
+}
+
+void logout(context) {
+  HomeCubit.get(context).logout();
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const LoginScreen(),
+    ),
   );
 }

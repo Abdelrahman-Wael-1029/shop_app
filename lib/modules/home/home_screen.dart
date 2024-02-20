@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/models/home/home_model.dart';
+import 'package:shop_app/shared/styles/style.dart';
 
 import '../../models/category/category_model.dart';
 import '../../shared/components/components.dart';
@@ -73,7 +74,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text(
                   'Categories',
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  style: getDisplayTextStyle(context)!.copyWith(
                         color: AppColors.primaryColor,
                       ),
                 ),
@@ -99,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   'New Products',
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  style:  getDisplayTextStyle(context)!.copyWith(
                         color: AppColors.primaryColor,
                       ),
                 ),
@@ -133,7 +134,7 @@ class HomeScreen extends StatelessWidget {
           ),
         );
       },
-      child: Container(
+      child: SizedBox(
         width: 150,
         height: 150,
         child: Stack(
@@ -153,15 +154,15 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              color: const Color.fromRGBO(0, 0, 0, .8),
+              color: const Color.fromRGBO(128,128,128, .8),
               child: Text(
                 model.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
+                style: getLabelTextStyle(context)!.copyWith(
+                      color: Colors.white,
+                    ),
               ),
             )
           ],

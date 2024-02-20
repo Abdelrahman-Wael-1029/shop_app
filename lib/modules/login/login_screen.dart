@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/modules/login/cubit/login_cubit.dart';
+import 'package:shop_app/shared/styles/style.dart';
 
 import '../../layout/home_layout/home_layout.dart';
 import '../../shared/components/components.dart';
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: emailController,
                             label: Text(
                               'email',
-                              style: Theme.of(context).textTheme.labelMedium,
+                              style: getLabelTextStyle(context),
                             ),
                             prefixIcon: Icon(
                               Icons.email,
@@ -115,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: passwordController,
                             label: Text(
                               'password',
-                              style: Theme.of(context).textTheme.labelMedium,
+                              style: getLabelTextStyle(context),
                             ),
                             prefixIcon: Icon(
                               Icons.lock,
@@ -141,6 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ConditionalBuilder(
                             condition: state is! LoginLoading,
                             builder: (context) => defaultFormButton(
+                             context:  context,
                               text: 'Login',
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
