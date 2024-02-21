@@ -177,14 +177,15 @@ Widget buildProducts(
                         Theme.of(context).textTheme.bodyMedium!.color,
                   ),
                 ),
-              const Spacer(),
               if (showFavIcon)
-                IconButton(
-                  onPressed: () {
-                    BlocProvider.of<HomeCubit>(context).changeFavorite(model);
-                  },
-                  icon: favoriteIcon(
-                    model.in_favorites,
+                Expanded(
+                  child: IconButton(
+                    onPressed: () {
+                      BlocProvider.of<HomeCubit>(context).changeFavorite(model);
+                    },
+                    icon: favoriteIcon(
+                      model.in_favorites,
+                    ),
                   ),
                 ),
             ],

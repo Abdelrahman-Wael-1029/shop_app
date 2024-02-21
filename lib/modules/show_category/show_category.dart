@@ -22,10 +22,10 @@ class ShowCategory extends StatefulWidget {
 }
 
 class _ShowCategoryState extends State<ShowCategory> {
-
   _ShowCategoryState(
-      this.categoryModel,
-      );
+    this.categoryModel,
+  );
+
   final CategoryDataModel categoryModel;
 
   @override
@@ -58,10 +58,10 @@ class _ShowCategoryState extends State<ShowCategory> {
                 height: 20,
               ),
               Text(
-                "List of ${widget.categoryModel.name} Products:",
+                "Products",
                 style: getDisplayTextStyle(context)!.copyWith(
-                      color: AppColors.primaryColor,
-                    ),
+                  color: AppColors.primaryColor,
+                ),
               ),
               const SizedBox(
                 height: 30,
@@ -93,7 +93,7 @@ class _ShowCategoryState extends State<ShowCategory> {
     return showProducts(
       context,
       cubit.productsModel,
-      widthProduct: MediaQuery.of(context).size.width * .4,
+      widthProduct: MediaQuery.of(context).size.width * .45,
     );
   }
 }
