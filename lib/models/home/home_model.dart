@@ -21,21 +21,14 @@ class HomeModel {
 }
 
   class HomeDataModel {
-    List<BannerModel> banners;
     List<ProductsModel> products;
 
   HomeDataModel({
-    required this.banners,
     required this.products,
   });
 
   factory HomeDataModel.fromJson(Map<String, dynamic> json) {
     return HomeDataModel(
-      banners: List<BannerModel>.from(
-        json['banners'].map(
-          (x) => BannerModel.fromJson(x),
-        ),
-      ),
       products: List<ProductsModel>.from(
         json['products'].map(
           (x) => ProductsModel.fromJson(x),
@@ -46,7 +39,7 @@ class HomeModel {
 
   @override
   String toString() {
-    return 'HomeDataModel(banners: $banners, products: $products)';
+    return 'HomeDataModel(products: $products)';
   }
 }
 

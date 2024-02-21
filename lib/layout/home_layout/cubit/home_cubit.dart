@@ -2,8 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/category/category_model.dart';
-import 'package:shop_app/models/profile/profile_model.dart';
-import 'package:shop_app/models/user/user_modell.dart';
 import 'package:shop_app/shared/network/end_points.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio_helper/dio_helper.dart';
@@ -52,7 +50,6 @@ class HomeCubit extends Cubit<HomeState> {
       url: Home,
       token: Token,
     ).then((value) {
-      print(value.data);
       homeModel = HomeModel.fromJson(value.data);
       emit(GetHomeDataSuccessState());
     }).catchError((error) {
@@ -114,7 +111,6 @@ class HomeCubit extends Cubit<HomeState> {
 
       emit(ChangeFavoriteSuccessState());
     }).catchError((error) {
-      print(error.toString());
       productsModel.in_favorites = !productsModel.in_favorites;
 
       homeModel!.data.products.forEach((element) {
@@ -143,10 +139,8 @@ class HomeCubit extends Cubit<HomeState> {
       value.data['data']['data'].forEach((element) {
         productsModel.add(ProductsModel.fromJson(element));
       });
-      print(productsModel[0]);
       emit(ShowCategorySuccessGetProducts());
     }).catchError((error) {
-      print(error.toString());
       emit(ShowCategoryErrorGetProducts());
     });
   }
@@ -164,13 +158,10 @@ class HomeCubit extends Cubit<HomeState> {
         throw value.data['message'];
       }
       value.data['data']['data'].forEach((element) {
-        // print all keys in ths element
-        print(element.keys);
         searchProducts.add(ProductsModel.fromJson(element));
       });
       emit(GetSearchProductsSuccessState());
     }).catchError((error) {
-      print(error.toString());
       emit(GetSearchDataErrorState(error.toString()));
     });
   }

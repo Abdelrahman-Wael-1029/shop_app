@@ -40,24 +40,24 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         children: [
           CarouselSlider(
-              items: homeModel.data.banners
-                  .map(
-                    (e) => Image.network(
-                      e.image,
-                      width: double.infinity,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Text('');
-                      },
-                      fit: BoxFit.fill,
-                    ),
-                  )
-                  .toList(),
+              items: banners.map(
+                (e) {
+                  return Image.asset(
+                    e,
+                    width: double.infinity,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Text('');
+                    },
+                    fit: BoxFit.fill,
+                  );
+                },
+              ).toList(),
               options: CarouselOptions(
                 viewportFraction: .9,
-                initialPage: 7,
+                initialPage: 0,
                 height: 300,
                 enableInfiniteScroll: true,
-                // autoPlay: true,
+                autoPlay: true,
                 autoPlayInterval: const Duration(seconds: 3),
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
                 autoPlayCurve: Curves.fastOutSlowIn,
@@ -73,8 +73,8 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   'Categories',
                   style: getDisplayTextStyle(context)!.copyWith(
-                        color: AppColors.primaryColor,
-                      ),
+                    color: AppColors.primaryColor,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -98,9 +98,9 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   'New Products',
-                  style:  getDisplayTextStyle(context)!.copyWith(
-                        color: AppColors.primaryColor,
-                      ),
+                  style: getDisplayTextStyle(context)!.copyWith(
+                    color: AppColors.primaryColor,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -151,15 +151,15 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              color: const Color.fromRGBO(128,128,128, .8),
+              color: const Color.fromRGBO(128, 128, 128, .8),
               child: Text(
                 model.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: getLabelTextStyle(context)!.copyWith(
-                      color: Colors.white,
-                    ),
+                  color: Colors.white,
+                ),
               ),
             )
           ],

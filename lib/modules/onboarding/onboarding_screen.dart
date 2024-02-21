@@ -38,19 +38,19 @@ class _OnBoardingState extends State<OnBoardingScreen> {
 
   var pagesView = [
     OnBoardingModel(
-      title: 'title1',
-      body: 'body board 1',
-      image: 'assets/images/onboarding/onboarding_1.png',
+      title: 'shopping',
+      body: 'check our products',
+      image: 'images/onboarding/onboarding_1.png',
     ),
     OnBoardingModel(
-      title: 'title2',
-      body: 'body board 2',
-      image: 'assets/images/onboarding/onboarding_1.png',
+      title: 'brand',
+      body: 'shop from the best brands',
+      image: 'images/onboarding/onboarding_2.png',
     ),
     OnBoardingModel(
-      title: 'title3',
-      body: 'body board 3',
-      image: 'assets/images/onboarding/onboarding_1.png',
+      title: 'shopping online',
+      body: 'shop from the comfort of your home',
+      image: 'images/onboarding/onboarding_3.png',
     ),
   ];
 
@@ -106,6 +106,7 @@ class _OnBoardingState extends State<OnBoardingScreen> {
             onBoardingModel.image,
             fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) {
+              print('error is $error');
               return const Text('');
             },
           ),
