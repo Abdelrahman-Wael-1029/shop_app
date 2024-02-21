@@ -20,9 +20,9 @@ class HomeModel {
   }
 }
 
-class HomeDataModel {
-  List<BannerModel> banners;
-  List<ProductsModel> products;
+  class HomeDataModel {
+    List<BannerModel> banners;
+    List<ProductsModel> products;
 
   HomeDataModel({
     required this.banners,
@@ -76,19 +76,18 @@ class ProductsModel {
   int id;
   dynamic price;
   dynamic old_price;
-  int discount;
+  int? discount;
   String image;
   String name;
   String description;
   List<String> images;
   bool in_favorites;
   bool in_cart;
-
   ProductsModel({
     required this.id,
     required this.price,
-    required this.old_price,
-    required this.discount,
+    this.old_price,
+    this.discount,
     required this.image,
     required this.name,
     required this.description,

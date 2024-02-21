@@ -151,6 +151,30 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  List<ProductsModel> searchProducts =[];
+
+  void getSearchProducts(String text) {
+    emit(GetSearchDataLoadingState());
+    DioHelper.postData(
+        url: Search,
+        data: FormData.fromMap({
+          'text': text,
+        })).then((value) {
+      if (value.data['status'] == false) {
+        throw value.data['message'];
+      }
+      value.data['data']['data'].forEach((element) {
+        // print all keys in ths element
+        print(element.keys);
+        searchProducts.add(ProductsModel.fromJson(element));
+      });
+      emit(GetSearchProductsSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetSearchDataErrorState(error.toString()));
+    });
+  }
+
   void logout() {
     CacheHelper.removeData(key: 'token').then((value) {
       Token = '';

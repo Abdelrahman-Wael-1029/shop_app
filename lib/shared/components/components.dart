@@ -108,7 +108,7 @@ Widget buildProducts(
         );
       }));
     },
-    child: Container(
+    child: SizedBox(
       width: widthProduct,
       height: heightProduct,
       child: Column(
@@ -166,7 +166,7 @@ Widget buildProducts(
               const SizedBox(
                 width: 5,
               ),
-              if (model.discount != 0)
+              if (model.discount != null &&model.old_price != null && model.discount != 0)
                 // white lineThrough
                 Text(
                   "${model.old_price.round()}",
@@ -177,6 +177,7 @@ Widget buildProducts(
                         Theme.of(context).textTheme.bodyMedium!.color,
                   ),
                 ),
+              const Spacer(),
               if (showFavIcon)
                 Expanded(
                   child: IconButton(

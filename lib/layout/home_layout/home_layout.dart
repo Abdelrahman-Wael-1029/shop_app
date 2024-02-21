@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
+import 'package:shop_app/modules/search/search_screen.dart';
 
 import '../../modules/category/category_screen.dart';
 import '../../modules/favorites/favorites_screen.dart';
@@ -32,6 +33,12 @@ class HomeLayout extends StatelessWidget {
             title: const Text('shoppy'),
             surfaceTintColor: Colors.transparent,
             actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchScreen()));
+                },
+                icon: const Icon(Icons.search),
+              ),
             //   change mode
               IconButton(
                 onPressed: () {

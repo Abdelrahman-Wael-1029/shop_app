@@ -145,4 +145,8 @@ ThemeData themeDataLight = ThemeData(
     type: BottomNavigationBarType.fixed,
     elevation: 20,
   ),
+  searchBarTheme: SearchBarThemeData(
+    backgroundColor: MaterialStateProperty.all(Colors.grey[200]),
+    elevation: MaterialStateProperty.all(0),
+  ),
 );

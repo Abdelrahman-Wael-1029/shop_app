@@ -148,4 +148,13 @@ ThemeData themeDataDark = ThemeData(
       color: Colors.white,
     ),
   ),
+  searchBarTheme: SearchBarThemeData(
+    backgroundColor: MaterialStateProperty.all(Colors.grey[600]),
+    elevation: MaterialStateProperty.all(0),
+    textStyle: MaterialStateProperty.all(
+      const TextStyle(
+        color: Colors.white,
+      ),
+    ),
+  ),
 );

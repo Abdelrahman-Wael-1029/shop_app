@@ -47,4 +47,14 @@ class LogoutSuccessState extends HomeState {}
 
 class LogoutErrorState extends HomeState {}
 
+class GetSearchDataLoadingState extends HomeState {}
+
+class GetSearchProductsSuccessState extends HomeState {}
+
+class GetSearchDataErrorState extends HomeState {
+  final String error;
+
+  GetSearchDataErrorState(this.error);
+}
+
 

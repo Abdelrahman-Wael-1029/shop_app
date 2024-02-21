@@ -13,3 +13,5 @@ const String Favourites = 'favorites';
 const String Profile = 'profile';
 
 const String UpdateProfile = 'update-profile';
+
+const String Search = 'products/search';
