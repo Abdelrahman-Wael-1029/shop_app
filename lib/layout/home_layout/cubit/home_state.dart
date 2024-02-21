@@ -47,23 +47,4 @@ class LogoutSuccessState extends HomeState {}
 
 class LogoutErrorState extends HomeState {}
 
-class GetProfileDataLoadingState extends HomeState {}
-
-class GetProfileDataSuccessState extends HomeState {}
-
-class GetProfileDataErrorState extends HomeState {
-  final String error;
-
-  GetProfileDataErrorState(this.error);
-}
-
-class UpdateProfileDataLoadingState extends HomeState {}
-
-class UpdateProfileDataSuccessState extends HomeState {}
-
-class UpdateProfileDataErrorState extends HomeState {
-  final String error;
-
-  UpdateProfileDataErrorState(this.error);
-}
 

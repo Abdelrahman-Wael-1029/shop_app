@@ -52,7 +52,7 @@ class DioHelper {
 
   static Future<Response> putData({
     required String url,
-    required FormData data,
+    required data,
     String lang = 'en',
     String? token,
     Map<String, dynamic>? query,

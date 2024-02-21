@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   height: 100,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
@@ -107,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: showProducts(
                     context,
@@ -123,7 +121,6 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget buildCategoryItem(context, CategoryDataModel model) {
-    var cubit = HomeCubit.get(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(

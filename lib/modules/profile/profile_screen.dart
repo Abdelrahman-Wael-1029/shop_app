@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
+import 'package:shop_app/modules/profile/cubit/profile_cubit.dart';
 import 'package:shop_app/shared/components/components.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -25,7 +25,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    HomeCubit.get(context).getProfile();
   }
 
   @override
@@ -39,126 +38,151 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: BlocConsumer<HomeCubit, HomeState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  var cubit = HomeCubit.get(context);
-                  if(cubit.userModel != null) {
-                    nameController.text = cubit.userModel!.name;
-                    phoneController.text = cubit.userModel!.phone;
-                    emailController.text = cubit.userModel!.email;
-                  }
-                  return ConditionalBuilder(
-                    condition: cubit.userModel != null,
-                    builder: (context) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage: NetworkImage(
-                              cubit.userModel!.image,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          defaultTextFormField(
-                            keyboardType: TextInputType.text,
-                            controller: nameController,
-                            label: Text(
-                              'Name',
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: Theme.of(context).iconTheme.color,
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter your name';
-                              }
-                              return null;
+        child: BlocProvider(
+          create: (context) => ProfileCubit()..getProfile(),
+          child: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              if (state is UpdateProfileDataErrorState) {
+                defaultShowToast(
+                  message: state.error,
+                  context: context,
+                );
+              }
+            },
+            builder: (context, state) {
+              var cubit = ProfileCubit.get(context);
+              if (cubit.profileModel != null &&
+                  cubit.profileModel!.status == true &&
+                  !cubit.isUpdate) {
+                nameController.text = cubit.profileModel!.data!.name;
+                phoneController.text = cubit.profileModel!.data!.phone;
+                emailController.text = cubit.profileModel!.data!.email;
+              }
+              return Column(
+                children: [
+                  if (state is UpdateProfileDataLoadingState)
+                    const LinearProgressIndicator(),
+                  Expanded(
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Form(
+                          key: formKey,
+                          child: ConditionalBuilder(
+                            condition: cubit.profileModel != null,
+                            builder: (context) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage: NetworkImage(
+                                      cubit.profileModel!.data!.image,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  defaultTextFormField(
+                                    keyboardType: TextInputType.text,
+                                    controller: nameController,
+                                    label: Text(
+                                      'Name',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Theme.of(context).iconTheme.color,
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'please enter your name';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  defaultTextFormField(
+                                    keyboardType: TextInputType.phone,
+                                    controller: phoneController,
+                                    label: Text(
+                                      'Phone Number',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.phone,
+                                      color: Theme.of(context).iconTheme.color,
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'please enter your phone number';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  defaultTextFormField(
+                                    keyboardType: TextInputType.emailAddress,
+                                    controller: emailController,
+                                    label: Text(
+                                      'Email',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.email,
+                                      color: Theme.of(context).iconTheme.color,
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'please enter your email';
+                                      }
+                                      if (!RegExp(
+                                              r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                          .hasMatch(value)) {
+                                        return 'please enter a valid email';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  defaultFormButton(
+                                    context: context,
+                                    text: 'Update Profile',
+                                    onPressed: () {
+                                      if (formKey.currentState!.validate()) {
+                                        cubit.updateProfile(
+                                          email: emailController.text,
+                                          name: nameController.text,
+                                          phone: phoneController.text,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ],
+                              );
                             },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          defaultTextFormField(
-                            keyboardType: TextInputType.phone,
-                            controller: phoneController,
-                            label: Text(
-                              'Phone Number',
-                              style: Theme.of(context).textTheme.labelMedium,
+                            fallback: (context) => const Center(
+                              child: CircularProgressIndicator(),
                             ),
-                            prefixIcon: Icon(
-                              Icons.phone,
-                              color: Theme.of(context).iconTheme.color,
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter your phone number';
-                              }
-                              return null;
-                            },
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          defaultTextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
-                            label: Text(
-                              'Email',
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Theme.of(context).iconTheme.color,
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter your email';
-                              }
-                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                  .hasMatch(value)) {
-                                return 'please enter a valid email';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          defaultFormButton(
-                            context: context,
-                            text: 'Update Profile',
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                cubit.updateProfile(
-                                  email: emailController.text,
-                                  name: nameController.text,
-                                  phone: phoneController.text,
-                                );
-                              }
-                            },
-                          ),
-                          if (state is UpdateProfileDataLoadingState)
-                            const LinearProgressIndicator(),
-                        ],
-                      );
-                    },
-                    fallback: (context) => const Center(
-                      child: CircularProgressIndicator(),
+                        ),
+                      ),
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

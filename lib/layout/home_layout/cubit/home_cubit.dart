@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/category/category_model.dart';
+import 'package:shop_app/models/profile/profile_model.dart';
 import 'package:shop_app/models/user/user_modell.dart';
 import 'package:shop_app/shared/network/end_points.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
@@ -150,55 +151,10 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  UserModel? userModel;
-
-  void getProfile() {
-    emit(GetProfileDataLoadingState());
-    DioHelper.getData(
-      url: Profile,
-      token: Token,
-    ).then((value) {
-      if (value.data['status'] == false) {
-        throw 'Not get profile data';
-      }
-      userModel = UserModel.fromJson(value.data['data']);
-      emit(GetProfileDataSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(GetProfileDataErrorState(error.toString()));
-    });
-  }
-
   void logout() {
     CacheHelper.removeData(key: 'token').then((value) {
       Token = '';
       emit(LogoutSuccessState());
-    });
-  }
-
-  void updateProfile({
-    required String email,
-    required String name,
-    required String phone,
-  }) {
-    emit(UpdateProfileDataLoadingState());
-    print(name + ' ' + email + ' ' + phone);
-    DioHelper.putData(
-
-      url: UpdateProfile,
-      token: Token,
-      data: FormData.fromMap(
-        {
-          'name': name,
-          'email': email,
-          'phone': phone,
-        },
-      ),
-    ).then((value) {
-      emit(UpdateProfileDataSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(UpdateProfileDataErrorState(error.toString()));
     });
   }
 }
