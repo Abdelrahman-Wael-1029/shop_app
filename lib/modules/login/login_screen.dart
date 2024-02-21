@@ -33,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> checkLogin() async {
     var seen = await CacheHelper.getData(key: 'token');
     if (seen != null) {
+      Token = seen;
       submit(seen);
     }
   }

@@ -51,6 +51,7 @@ class HomeCubit extends Cubit<HomeState> {
       token: Token,
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
+      print(value.data['data']['products']);
       emit(GetHomeDataSuccessState());
     }).catchError((error) {
       emit(GetHomeDataErrorState(error));
@@ -107,6 +108,9 @@ class HomeCubit extends Cubit<HomeState> {
         if (element.id == productsModel.id) {
           element.in_favorites = productsModel.in_favorites;
         }
+        if(currentIndex == 2){
+          getFavoritesProducts();
+        }
       });
 
       emit(ChangeFavoriteSuccessState());
@@ -134,8 +138,6 @@ class HomeCubit extends Cubit<HomeState> {
         'category_id': categoryModel.id,
       },
     ).then((value) {
-      productsModel = [];
-
       value.data['data']['data'].forEach((element) {
         productsModel.add(ProductsModel.fromJson(element));
       });
@@ -148,6 +150,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<ProductsModel> searchProducts =[];
 
   void getSearchProducts(String text) {
+    searchProducts = [];
     emit(GetSearchDataLoadingState());
     DioHelper.postData(
         url: Search,

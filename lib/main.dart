@@ -25,9 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      HomeCubit()
-        ..getCategoryData()
-        ..getHomeData(),
+      HomeCubit(),
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return MaterialApp(

@@ -32,8 +32,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             Text(
               "My Favorites",
               style: getDisplayTextStyle(context)!.copyWith(
-                    color: AppColors.primaryColor,
-                  ),
+                color: AppColors.primaryColor,
+              ),
             ),
             const SizedBox(
               height: 30,
@@ -48,15 +48,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   condition: cubit.favoritesProducts != null,
                   builder: (context) => ConditionalBuilder(
                     condition: cubit.favoritesProducts!.isNotEmpty,
-                    builder: (context)=> showProducts(
+                    builder: (context) => showProducts(
                       context,
                       cubit.favoritesProducts!,
                       widthProduct: MediaQuery.of(context).size.width * .4,
                       showFavIcon: false,
                     ),
-                    fallback: (context) =>  Center(
-                      child: Text("No Favorites Yet",
-                        style : getDisplayTextStyle(context),
+                    fallback: (context) => Center(
+                      child: Text(
+                        "No Favorites Yet",
+                        style: getDisplayTextStyle(context)!.copyWith(
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),

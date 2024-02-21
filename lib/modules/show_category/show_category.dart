@@ -5,7 +5,6 @@ import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/shared/styles/style.dart';
 
 import '../../models/category/category_model.dart';
-import '../../models/home/home_model.dart';
 import '../../shared/components/components.dart';
 import '../../shared/constants/constant.dart';
 
