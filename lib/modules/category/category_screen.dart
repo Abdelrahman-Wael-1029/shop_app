@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout/cubit/home_cubit.dart';
 import 'package:shop_app/models/category/category_model.dart';
-import 'package:shop_app/shared/styles/style.dart';
 
 import '../show_category/show_category.dart';
 
@@ -48,13 +47,16 @@ class CategoryScreen extends StatelessWidget {
       },
       child: Row(
         children: [
-          Image.network(
-            model.image,
-            errorBuilder: (context, error, stackTrace) {
-              return const Icon(Icons.error);
-            },
-            width: 100,
-            height: 100,
+          Hero(
+            tag: model.id,
+            child: Image.network(
+              model.image,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
+              width: 100,
+              height: 100,
+            ),
           ),
           const SizedBox(
             width: 10,

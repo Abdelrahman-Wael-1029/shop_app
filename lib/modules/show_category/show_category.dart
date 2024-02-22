@@ -47,11 +47,14 @@ class _ShowCategoryState extends State<ShowCategory> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.network(
-                widget.categoryModel.image,
-                width: double.infinity,
-                height: heightProduct,
-                fit: BoxFit.fitHeight,
+              Hero(
+                tag: categoryModel.id,
+                child: Image.network(
+                  widget.categoryModel.image,
+                  width: double.infinity,
+                  height: heightProduct,
+                  fit: BoxFit.fitHeight,
+                ),
               ),
               const SizedBox(
                 height: 20,

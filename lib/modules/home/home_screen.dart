@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: getLabelTextStyle(context)!.copyWith(
+                style: getBodyTextStyle(context)!.copyWith(
                   color: Colors.white,
                 ),
               ),
