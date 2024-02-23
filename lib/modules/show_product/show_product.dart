@@ -19,8 +19,7 @@ class ShowProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -55,8 +54,7 @@ class ShowProduct extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () {
-                          HomeCubit.get(context)
-                              .changeFavorite(productsModel);
+                          HomeCubit.get(context).changeFavorite(productsModel);
                         },
                         icon: favoriteIcon(
                           productsModel.in_favorites,
@@ -129,11 +127,14 @@ class ShowProduct extends StatelessWidget {
   }
 
   buildProductView(String image) {
-    return Image.network(image,
-        fit: BoxFit.fitHeight,
-        width: double.infinity,
-        height: 250, errorBuilder: (context, error, stackTrace) {
-          return const Text('');
-        });
+    return Image.network(
+      image,
+      fit: BoxFit.fitHeight,
+      width: double.infinity,
+      height: 250,
+      errorBuilder: (context, error, stackTrace) {
+        return const Text('');
+      },
+    );
   }
 }

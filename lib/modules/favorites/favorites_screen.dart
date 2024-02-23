@@ -14,11 +14,26 @@ class FavoritesScreen extends StatefulWidget {
   State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class _FavoritesScreenState extends State<FavoritesScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+
   @override
   void initState() {
     super.initState();
     HomeCubit.get(context).getFavoritesProducts();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+      lowerBound: 0,
+      upperBound: 60,
+    )..forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,36 +53,47 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             const SizedBox(
               height: 30,
             ),
-            BlocConsumer<HomeCubit, HomeState>(
-              listener: (context, state) {
-                // TODO: implement listener
+            AnimatedBuilder(
+              animation: animationController,
+              builder: (BuildContext context, Widget? child) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      top: animationController.upperBound -
+                          animationController.value),
+                  child: child,
+                );
               },
-              builder: (context, state) {
-                var cubit = HomeCubit.get(context);
-                return ConditionalBuilder(
-                  condition: cubit.favoritesProducts != null,
-                  builder: (context) => ConditionalBuilder(
-                    condition: cubit.favoritesProducts!.isNotEmpty,
-                    builder: (context) => showProducts(
-                      context,
-                      cubit.favoritesProducts!,
-                      widthProduct: MediaQuery.of(context).size.width * .4,
-                      showFavIcon: false,
-                    ),
-                    fallback: (context) => Center(
-                      child: Text(
-                        "No Favorites Yet",
-                        style: getDisplayTextStyle(context)!.copyWith(
-                          color: Colors.grey,
+              child: BlocConsumer<HomeCubit, HomeState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  var cubit = HomeCubit.get(context);
+                  return ConditionalBuilder(
+                    condition: cubit.favoritesProducts != null,
+                    builder: (context) => ConditionalBuilder(
+                      condition: cubit.favoritesProducts!.isNotEmpty,
+                      builder: (context) => showProducts(
+                        context,
+                        cubit.favoritesProducts!,
+                        widthProduct: MediaQuery.of(context).size.width * .4,
+                        showFavIcon: false,
+                      ),
+                      fallback: (context) => Center(
+                        child: Text(
+                          "No Favorites Yet",
+                          style: getDisplayTextStyle(context)!.copyWith(
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  fallback: (context) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              },
+                    fallback: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),

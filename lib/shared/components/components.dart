@@ -201,6 +201,7 @@ Widget favoriteIcon(bool isFavorite) {
   return Icon(
     (isFavorite) ? Icons.favorite : Icons.favorite_border,
     color: AppColors.secondaryColor,
+    key: ValueKey(isFavorite),
   );
 }
 

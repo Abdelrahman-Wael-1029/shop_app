@@ -148,17 +148,20 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Image.network(
-              model.image,
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.fill,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(
-                  Icons.error,
-                  color: Colors.red,
-                );
-              },
+            Hero(
+              tag: model.id,
+              child: Image.network(
+                model.image,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  );
+                },
+              ),
             ),
             Container(
               width: double.infinity,

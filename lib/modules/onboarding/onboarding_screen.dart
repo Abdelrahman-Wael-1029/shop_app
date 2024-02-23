@@ -4,7 +4,6 @@ import 'package:shop_app/models/onboarding/onboarding.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../shared/theme/light_theme.dart';
 import '../login/login_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -14,14 +13,29 @@ class OnBoardingScreen extends StatefulWidget {
   State<OnBoardingScreen> createState() => _OnBoardingState();
 }
 
-class _OnBoardingState extends State<OnBoardingScreen> {
+class _OnBoardingState extends State<OnBoardingScreen>
+    with SingleTickerProviderStateMixin {
   var controllerPageView = PageController();
   bool isLastPage = false;
+  late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
     checkFirstSeen();
+    animationController = AnimationController(
+      vsync: this,
+      lowerBound: 0,
+      duration: const Duration(seconds: 1),
+      upperBound: 30,
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    controllerPageView.dispose();
+    animationController.dispose();
+    super.dispose();
   }
 
   Future<void> checkFirstSeen() async {
@@ -102,13 +116,22 @@ class _OnBoardingState extends State<OnBoardingScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-          child: Image.asset(
-            onBoardingModel.image,
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) {
-              print('error is $error');
-              return const Text('');
+          child: AnimatedBuilder(
+            animation: animationController,
+            builder: (BuildContext context, Widget? child) {
+              return Padding(
+                padding: EdgeInsets.only(top: animationController.value),
+                child: child,
+              );
             },
+            child: Image.asset(
+              onBoardingModel.image,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                print('error is $error');
+                return const Text('');
+              },
+            ),
           ),
         ),
         const SizedBox(
@@ -140,7 +163,7 @@ class _OnBoardingState extends State<OnBoardingScreen> {
                 'GET STARTED',
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: Colors.white,
-                ),
+                    ),
               ),
             );
           },
